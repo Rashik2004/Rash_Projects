@@ -1,3 +1,9 @@
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
 class Config:
     UPLOAD_FOLDER = 'uploads'
     ALLOWED_EXTENSIONS = {'pdf', 'docx'}
@@ -7,13 +13,13 @@ class Config:
     AI_PROVIDER = "gemini"  # Only using Gemini for now
 
     # OpenAI Configuration - Currently disabled
-    OPENAI_API_KEY = ""
+    OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 
     # HuggingFace Configuration - Currently disabled
-    HUGGINGFACE_API_KEY = ""
+    HUGGINGFACE_API_KEY = os.environ.get("HUGGINGFACE_API_KEY", "")
 
     # Gemini Configuration
-    GEMINI_API_KEY = "AIzaSyAnEdXoGh8X7l2y3bqe-LWlvKMK54OlpVo"  # Add your Gemini API key here
+    GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")  # Get API key from environment variables
 
     USE_AI_ANALYSIS = True  # Set to True to enable AI-powered analysis
 

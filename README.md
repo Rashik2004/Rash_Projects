@@ -28,9 +28,26 @@ pip3 install -r requirements.txt
 ```
 
 3. Set up your Gemini API key:
-   - Create a file named `.env` in the project root directory
-   - Add your API key: `GEMINI_API_KEY=your_api_key_here`
-   - Or update the `config.py` file directly (not recommended for GitHub)
+   - Copy `.env.example` to a new file named `.env`: `cp .env.example .env`
+   - Edit `.env` and add your API key: `GEMINI_API_KEY=your_api_key_here`
+   - **IMPORTANT**: Never commit your `.env` file to version control
+
+## Security
+
+⚠️ **NEVER commit API keys directly in your code** ⚠️
+
+- Always use environment variables for sensitive information
+- The `.env` file is included in `.gitignore` to prevent accidental exposure
+- If you've accidentally committed API keys, rotate them immediately
+
+### Handling GitHub Security Alerts
+
+If you receive a GitHub security alert about exposed secrets:
+
+1. **Rotate your API keys immediately** - Go to the Google Cloud Console and regenerate the affected API key
+2. **Remove the key from your repository history** - Consider using tools like BFG Repo-Cleaner or git-filter-repo
+3. **Update your local .env file** with the new API key
+4. **Verify the fix** by ensuring no hardcoded keys remain in the code
 
 ## Usage
 
