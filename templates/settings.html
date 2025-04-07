@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analyzer - Settings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .settings-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="password"], select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 0.25rem;
+        }
+        .api-toggle {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .toggle-label {
+            margin-right: 1rem;
+            margin-bottom: 0;
+        }
+        .api-status {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+        }
+        .status-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .status-error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .flash-message {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+        }
+        .flash-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .flash-error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary {
+            background-color: #0d6efd;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        .api-key-field {
+            position: relative;
+        }
+        .toggle-visibility {
+            position: absolute;
+            right: 10px;
+            top: 45px;
+            cursor: pointer;
+            color: #666;
+        }
+        .info-icon {
+            margin-left: 8px;
+            color: #0d6efd;
+            cursor: pointer;
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 300px;
+            background-color: #333;
+            color: #fff;
+            text-align: left;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -150px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.85rem;
+            font-weight: normal;
+            line-height: 1.4;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">Resume Analyzer</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/resume">Analyze Resume</a></li>
+                <li><a href="/settings" class="active">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="settings-container">
+            <h1>Settings</h1>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="flash-message flash-{{ category }}">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('settings') }}">
+                <div class="form-group api-toggle">
+                    <label for="use_ai" class="toggle-label">Enable AI Analysis:</label>
+                    <input type="checkbox" id="use_ai" name="use_ai" {% if use_ai %}checked{% endif %}>
+                </div>
+
+                <div class="form-group">
+                    <label for="ai_provider">
+                        AI Provider
+                        <span class="tooltip info-icon">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="tooltiptext">
+                                Google's Gemini Pro provides strong AI resume analysis capabilities with a generous free quota.
+                            </span>
+                        </span>
+                    </label>
+                    <select id="ai_provider" name="ai_provider">
+                        <option value="gemini" selected>Google Gemini</option>
+                    </select>
+                </div>
+
+                <div id="gemini_settings" class="provider-settings">
+                    <div class="form-group api-key-field">
+                        <label for="gemini_api_key">
+                            Gemini API Key
+                            <span class="tooltip info-icon">
+                                <i class="fas fa-info-circle"></i>
+                                <span class="tooltiptext">
+                                    Get your free Gemini API key at: <a href="https://makersuite.google.com/app/apikey" target="_blank" style="color: #9cf;">https://makersuite.google.com/app/apikey</a><br>
+                                    Google provides a generous free tier with the Gemini API.
+                                </span>
+                            </span>
+                        </label>
+                        <input type="password" id="gemini_api_key" name="gemini_api_key" value="{{ gemini_api_key }}" placeholder="Enter your Gemini API key">
+                        <i class="fas fa-eye toggle-visibility" onclick="toggleVisibility('gemini_api_key')"></i>
+                    </div>
+                </div>
+
+                {% if api_error %}
+                <div class="api-status status-error">
+                    <strong>{{ api_error }}:</strong> {{ api_error_detail }}
+                </div>
+                {% elif ai_configured %}
+                <div class="api-status status-success">
+                    <strong>AI Analysis is configured and working!</strong> Your resume analysis will include AI-powered feedback.
+                </div>
+                {% endif %}
+
+                <div class="btn-container">
+                    <a href="/" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Save Settings</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Resume Analyzer</p>
+    </footer>
+
+    <script>
+        function toggleVisibility(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = event.target;
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    </script>
+</body>
+</html>

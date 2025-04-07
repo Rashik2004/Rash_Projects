@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" class="transition-colors duration-300">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up - Resume Analyzer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+      };
+    </script>
+    <style>
+      .focus\:animate-pulse:focus {
+        animation: pulse 1s infinite;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300">
+    <div class="min-h-screen flex items-center justify-center px-4">
+      <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg w-full max-w-md relative animate-fade-in">
+        <h2 class="text-2xl font-bold mb-6 text-blue-600 dark:text-blue-400 text-center">Sign Up</h2>
+        <form id="signupForm" class="space-y-4" onsubmit="handleSignup(event)">
+          <input type="text" placeholder="Full Name" required class="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:animate-pulse" />
+          <input type="email" placeholder="Email" required class="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:animate-pulse" />
+          <input type="password" placeholder="Password" required class="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:animate-pulse" />
+          <input type="password" placeholder="Confirm Password" required class="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:animate-pulse" />
+          <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition">Create Account</button>
+        </form>
+        <p class="mt-4 text-center text-sm">Already have an account?
+          <a href="login.html" class="text-blue-600 dark:text-blue-400 hover:underline">Login here</a>
+        </p>
+      </div>
+    </div>
+
+    <script>
+      function handleSignup(event) {
+        event.preventDefault();
+        const form = document.getElementById('signupForm');
+        form.classList.add('animate-bounce');
+        setTimeout(() => {
+          form.classList.remove('animate-bounce');
+          alert('Signed up successfully!');
+        }, 1000);
+      }
+    </script>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+  </body>
+</html>
