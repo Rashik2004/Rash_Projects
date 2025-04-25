@@ -327,6 +327,31 @@
             // Placeholder for backend integration
             console.log('Form submitted, awaiting backend processing.');
         });
+        paperForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Gather form data
+            const subjectCode = document.getElementById('subject_code').value; // Replace with actual input IDs
+            const subjectName = document.getElementById('subject_name').value;
+            const totalMarks = document.getElementById('total_marks').value; // Example input
+            // const difficultyLevel = document.getElementById('difficulty_level').value; // Example input
+
+            // Confirmation alert
+            const confirmMessage = `
+            Please confirm the entered data:
+            - Subject Code: ${subjectCode}
+            - Subject Name: ${subjectName}
+            - Total Marks: ${totalMarks}
+            // - Difficulty Level: ${difficultyLevel}
+            `;
+            const isConfirmed = confirm(confirmMessage);
+
+            if (isConfirmed) {
+                // Simulate successful submission
+                alert('Paper generated successfully! Thank you.');
+                e.target.reset(); // Reset the form
+            }
+        });
     </script>
 </body>
 </html>

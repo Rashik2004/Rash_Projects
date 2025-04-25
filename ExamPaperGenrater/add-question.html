@@ -257,12 +257,38 @@
         window.addEventListener('resize', handleResize);
         handleResize(); // Initial check
 
-        // Form submission (placeholder)
+        // Form submission with confirmation and greeting
         const questionForm = document.getElementById('questionForm');
         questionForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            alert('Question submitted! (This is a placeholder)');
-            e.target.reset();
+
+            // Gather form data
+            const subjectCode = document.getElementById('subject_code').value;
+            const subjectName = document.getElementById('subject_name').value;
+            const questionText = document.getElementById('question_text').value;
+            const difficulty = document.getElementById('difficulty').value;
+            const bloomsTaxonomy = document.getElementById('blooms_taxonomy').value;
+            const maxTime = document.getElementById('max_time').value;
+            const marks = document.getElementById('marks').value;
+
+            // Confirmation alert
+            const confirmMessage = `
+            Please confirm the entered data:
+            - Subject Code: ${subjectCode}
+            - Subject Name: ${subjectName}
+            - Question Text: ${questionText}
+            - Difficulty: ${difficulty}
+            - Bloom's Taxonomy Rank: ${bloomsTaxonomy}
+            - Maximum Time: ${maxTime} minutes
+            - Marks: ${marks}
+            `;
+            const isConfirmed = confirm(confirmMessage);
+
+            if (isConfirmed) {
+                // Simulate successful submission
+                alert('Question submitted successfully! Thank you.');
+                e.target.reset(); // Reset the form
+            }
         });
     </script>
 </body>
