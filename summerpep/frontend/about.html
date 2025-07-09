@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us - Social Network Simulator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --highlight: #5A00BA;
+    }
+    .bg-highlight {
+      background-color: var(--highlight);
+    }
+    .text-highlight {
+      color: var(--highlight);
+    }
+    .border-highlight {
+      border-color: var(--highlight);
+    }
+    .shadow-panel {
+      box-shadow: 0 2px 12px rgba(90, 0, 186, 0.08);
+    }
+  </style>
+</head>
+<body class="bg-purple-50 text-gray-800">
+
+  <!-- Header -->
+   <header class="bg-gradient-to-r from-headerGradientStart to-headerGradientEnd text-gray-900 px-6 py-6 shadow-header rounded-b-[32px] mb-8">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-highlight">Social Network Simulator</h1>
+      <div class="flex flex-col md:flex-row md:items-center w-full justify-between">
+        <nav class="flex space-x-8">
+          <a href="./index.html" class="text-lg font-semibold hover:text-white hover:bg-highlight px-3 py-1 rounded">Home</a>
+          <a href="#" class="text-lg font-semibold hover:text-white hover:bg-highlight px-3 py-1 rounded">Profile</a>
+        </nav>
+        <div class="flex space-x-4 mt-4 md:mt-0 md:ml-auto">
+          <div id="auth-buttons" class="flex space-x-4">
+            <button id="login-btn" class="bg-white text-highlight border-2 border-highlight font-semibold px-4 py-2 rounded shadow hover:bg-highlight hover:text-white transition">Login</button>
+          </div>
+          <div id="user-info" class="hidden flex items-center space-x-4">
+            <span id="user-welcome" class="text-sm font-medium">Welcome, <span id="username"></span>!</span>
+            <button id="logout-btn" class="bg-white text-highlight border-2 border-highlight font-semibold px-4 py-2 rounded shadow hover:bg-highlight hover:text-white transition">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Developer Cards -->
+  <main class="max-w-5xl mx-auto px-6 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+      <!-- Developer 1 -->
+      <div class="bg-white rounded-2xl p-6 border border-purple-200 shadow-panel text-center">
+        <img src="https://i.pravatar.cc/150?img=12" alt="Developer 1" class="w-32 h-32 mx-auto rounded-full shadow-lg mb-4">
+        <h2 class="text-2xl font-semibold text-highlight mb-1">Priyanshu Ghosh</h2>
+        <p class="text-gray-600">Full Stack Developer & Graph Theory Enthusiast</p>
+        <p class="text-sm mt-2 text-gray-500">Passionate about building intelligent systems and modern UIs for social platforms.</p>
+      </div>
+
+      <!-- Developer 2 -->
+      <div class="bg-white rounded-2xl p-6 border border-purple-200 shadow-panel text-center">
+        <img src="https://i.pravatar.cc/150?img=23" alt="Developer 2" class="w-32 h-32 mx-auto rounded-full shadow-lg mb-4">
+        <h2 class="text-2xl font-semibold text-highlight mb-1">Rashik Ghosh</h2>
+        <p class="text-gray-600">Backend Architect & Data Visualizer</p>
+        <p class="text-sm mt-2 text-gray-500">Loves building network visualizations and designing scalable backend logic.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-highlight text-white py-4 text-center mt-10 rounded-t-xl">
+    <p>&copy; 2025 Social Network Simulator. Built by Priyanshu & Rashik.</p>
+  </footer>
+
+</body>
+</html>

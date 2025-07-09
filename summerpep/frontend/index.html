@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Network Connectivity</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(45deg, #9333ea, #6b21a8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .node {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .node:hover {
+            transform: scale(1.1);
+        }
+        .connection {
+            stroke: #9333ea;
+            stroke-width: 2;
+            opacity: 0.7;
+        }
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body class="bg-white text-black">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-sm z-50 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <span class="text-2xl font-bold gradient-text">SNC</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#hero" class="hover:text-purple-600 px-3 py-2 text-sm font-medium transition-colors">Home</a>
+                        <a href="#features" class="hover:text-purple-600 px-3 py-2 text-sm font-medium transition-colors">Features</a>
+                        <a href="#how-it-works" class="hover:text-purple-600 px-3 py-2 text-sm font-medium transition-colors">How It Works</a>
+                        <a href="#faq" class="hover:text-purple-600 px-3 py-2 text-sm font-medium transition-colors">FAQ</a>
+                        <a href="./about.html" class="hover:text-purple-600 px-3 py-2 text-sm font-medium transition-colors">About us</a>
+                        <a href="./analysis.html" class="hover:text-purple-600 px-3 py-2 text-sm font-medium transition-colors">Analysis</a>
+                    </div>
+                </div>
+                <div id="auth-buttons" class="flex space-x-4">
+                    <button id="login-btn" class="bg-white text-highlight border-2 border-highlight font-semibold px-4 py-2 rounded shadow hover:bg-highlight hover:text-pink-800 transition">
+                        Login
+                    </button>
+                </div>
+                <div id="user-info" class="hidden flex items-center space-x-4">
+                    <span id="user-welcome" class="text-sm font-medium">Welcome, <span id="username"></span>!</span>
+                    <button id="logout-btn" class="bg-white text-highlight border-2 border-highlight font-semibold px-4 py-2 rounded shadow hover:bg-highlight hover:text-white transition">Logout</button>
+                  </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-500 hover:text-gray-900 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section flex items-center justify-center mt-[80px]">
+        <div class="max-w-7xl w-[95%] bg-white rounded-2xl shadow-lg p-6 flex flex-col md:flex-row justify-between items-center">
+          <div class="w-full md:w-1/2 space-y-4">
+            <div class="flex items-center space-x-2">
+              <div class="w-5 h-5 bg-purple-700 rotate-45"></div>
+              <h1 class="text-xl font-bold hero-title">Social<span class="text-gray-400">Connect</span></h1>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-extrabold leading-tight hero-subtitle">
+              Unleash Your Connectivity with<br />
+              Top <span class="text-purple-700">Social</span> <span class="text-purple-700">Platforms</span>
+            </h2>
+            <p class="text-gray-600 hero-text">
+              Elevate your social presence to new heights with powerful insights, curated networks, and tools that help you stay connected, informed, and engaged globally.
+            </p>
+            <div class="flex space-x-6 text-center text-gray-400 font-semibold text-sm pt-2 hero-stats">
+              <div><div class="text-lg font-bold">50</div>Platforms</div>
+              <div><div class="text-lg font-bold">0</div>Global Users</div>
+              <div><div class="text-lg font-bold text-purple-700">10+</div>Hours Online</div>
+            </div>
+            <div class="flex space-x-4 pt-4 hero-buttons">
+              <button class="px-4 py-2 text-sm font-semibold bg-gray-100 text-gray-400 cursor-not-allowed rounded shadow">Explore Networks</button>
+              <button class="px-4 py-2 text-sm font-semibold bg-purple-700 text-white rounded shadow hover:bg-purple-800" >Get Started</button>
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 mt-8 mb-8 md:mt-0 grid grid-cols-3 gap-3 place-items-center hero-shapes">
+            <div class="w-19 h-19 bg-gray-200 rounded-tl-3xl"></div>
+            <div class="w-12 h--12 bg-purple-700 rotate-45"></div>
+            <div class="w-16 h-32 bg-purple-700 rounded-tr-full"></div>
+            <div class="w-16 h-16 border-4 border-purple-700"></div>
+            <div class="w-[100px] h-[100px] bg-gray-200 rounded-full"></div>
+            <div class="w-16 h-16 border-b-[32px] border-b-gray-200 border-x-[16px] border-x-transparent"></div>
+            <div class="w-20 h-20 bg-purple-700 rounded-bl-3xl"></div>
+            <div class="w-0 h-0"></div>
+            <div class="w-20 h-20 bg-purple-700 rounded-br-full"></div>
+          </div>
+        </div>
+      </section>
+
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Key Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow feature-card">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m-6.9 2.6a3.5 3.5 0 105.3 5.9M 2.7 15.3 a 3.5 3.5 0 105.3-5.9"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">User Management</h3>
+                    <p class="text-gray-600">Add new users with a simple form and view a dynamic list of all users in your network.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow feature-card">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Friendships & Connections</h3>
+                    <p class="text-gray-600">Connect users with one click and visualize friendships through an interactive graph.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow feature-card">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 2-2 2v6a2 2 0 002 2h2a2 2 0 002-2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Network Analysis</h3>
+                    <p class="text-gray-600">Check direct and indirect connections, find mutual friends, and receive smart friend suggestions.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow feature-card">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Data Management</h3>
+                    <p class="text-gray-600">Save your network to a JSON file and load previously saved networks to continue exploring.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow feature-card">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-2 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Visualization</h3>
+                    <p class="text-gray-600">Interactive SVG-based network graph with zoom, pan, and community highlighting features.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow feature-card">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zm-12 0a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Community Discovery</h3>
+                    <p class="text-gray-600">Discover communities within your network using advanced Union-Find algorithm.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text">How It Works</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center step-card">
+                    <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">1</div>
+                    <h3 class="text-xl font-semibold mb-2">Add Users</h3>
+                    <p class="text-gray-600">Start by adding users to your network with our simple and intuitive form.</p>
+                </div>
+                <div class="text-center step-card">
+                    <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">2</div>
+                    <h3 class="text-xl font-semibold mb-2">Connect Friends</h3>
+                    <p class="text-gray-600">Create connections between users to build your social network relationships.</p>
+                </div>
+                <div class="text-center step-card">
+                    <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">3</div>
+                    <h3 class="text-xl font-semibold mb-2">Analyze & Visualize</h3>
+                    <p class="text-gray-600">Explore your network with powerful analysis tools and interactive visualizations.</p>
+                </div>
+                <div class="text-center step-card">
+                    <div class="w-16 h-16 bg-purple-600 rounded-full flex-items-center justify-center text-white text-2xl font-bold mx-auto mb-4">4</div>
+                    <h3 class="text-xl font-semibold mb-2">Save or Load</h3>
+                    <p class="text-gray-600">Save your network for later or load existing networks to continue your analysis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-purple-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="about-text">
+                    <h2 class="text-4xl font-bold mb-6 gradient-text">About Social Network Connectivity</h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Social networks are the backbone of human interaction, from ancient tribes to modern digital communities. Understanding these connections helps us make sense of how information spreads, how communities form, and how influence flows through groups.
+                    </p>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Our platform makes it easy to visualize and analyze these complex relationships. Whether you're studying social dynamics, building community tools, or just curious about networks, we provide the tools to explore connections in an intuitive, interactive way.
+                    </p>
+                    <p class="text-lg text-gray-600">
+                        With powerful algorithms and beautiful visualizations, you can uncover hidden patterns, identify key influencers, and understand the structure of any social network.
+                    </p>
+                </div>
+                <div class="about-visual">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-4 text-center">Network Analysis Benefits</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 bg-purple-600 rounded-full mr-3"></div>
+                                <span>Identify key influencers and connectors</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 bg-purple-600 rounded-full mr-3"></div>
+                                <span>Discover hidden communities</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 bg-purple-600 rounded-full mr-3"></div>
+                                <span>Understand information flow</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 bg-purple-600 rounded-full mr-3"></div>
+                                <span>Optimize network structure</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Frequently Asked Questions</h2>
+            <div class="space-y-6">
+                <div class="bg-white border border-gray-200 rounded-lg p-6 faq-item">
+                    <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(this)">
+                        <h3 class="text-xl font-semibold">Is my data secure and private?</h3>
+                        <svg class="w-5 h-5 text-purple-600 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="mt-4 text-gray-600 hidden">
+                        <p>Yes, all data is stored locally in your browser. We don't collect, store, or transmit any of your network data to external servers. Your privacy is our priority.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-lg p-6 faq-item">
+                    <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(this)">
+                        <h3 class="text-xl font-semibold">How many users can I add to my network?</h3>
+                        <svg class="w-5 h-5 text-purple-600 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="mt-4 text-gray-600 hidden">
+                        <p>There's no strict limit on the number of users you can add. However, very large networks (1000+ users) may impact performance on slower devices.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-lg p-6 faq-item">
+                    <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(this)">
+                        <h3 class="text-xl font-semibone">Can I export my network data?</h3>
+                        <svg class="w-5 h-5 text-purple-600 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="mt-4 text-gray-600 hidden">
+                        <p>Yes, you can export your network as a JSON file, which can be imported later or used with other tools that support this format.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-lg p-6 faq-item">
+                    <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(this)">
+                        <h3 class="text-xl font-semibold">What algorithms do you use for community detection?</h3>
+                        <svg class="w-5 h-5 text-purple-600 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="mt-4 text-gray-600 hidden">
+                        <p>We use the Union-Find algorithm for efficient community detection, which is perfect for identifying connected components in social networks.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Get In Touch</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="contact-form">
+                    <form class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                            <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Your name">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="your@email.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                            <textarea rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Your message, feedback, or questions..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                <div class="contact-info">
+                    <h3 class="text-2xl font-semibold mb-6">We'd Love to Hear From You</h3>
+                    <p class="text-gray-600 mb-6">
+                        Have questions about the platform? Found a bug? Want to suggest new features? We're always looking for ways to improve your experience.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-purple-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26.5.79 1.12 1.2.5.79L5 52 1.79 20.21 3 8z"/>
+                            </svg>
+                            <span>Quick response time</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-purple-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Feature requests welcome</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-purple-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            <span>Bug reports appreciated</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 gradient-text">Social Network Connectivity</h3>
+                    <p class="text-gray-300">Explore, analyze, and visualize social connections with powerful tools and beautiful interfaces.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#hero" class="text-gray-300 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#features" class="text-gray-300 hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#how-it-works" class="text-gray-300 hover:text-white transition-colors">How It Works</a></li>
+                        <li><a href="#faq" class="text-gray-300 hover:text-white transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#contact" class="text-gray-300 hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Documentation</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Social Network Connectivity. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // GSAP animations and smooth scrolling
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero section animations (restored)
+        gsap.timeline()
+            .from("#hero-title", {duration: 1, y: 50, opacity: 0, ease: "power2.out"})
+            .from("#hero-subtitle", {duration: 1, y: 30, opacity: 0, ease: "power2.out"}, "-=0.5")
+            .from("#hero-features", {duration: 1, y: 20, opacity: 0, ease: "power2.out"}, "-=0.3")
+            .from("#hero-stats", {duration: 1, y: 20, opacity: 0, ease: "power2.out"}, "-=0.2")
+            .from("#hero-cta", {duration: 1, y: 20, opacity: 0, ease: "power2.out"}, "-=0.2");
+
+        // Feature cards animation
+        gsap.from(".feature-card", {
+            scrollTrigger: {
+                trigger: "#features",
+                start: "top 80%",
+                end: "bottom 20%",
+                toggleActions: "play none none reverse"
+            },
+            duration: 0.8,
+            y: 50,
+            opacity: 0,
+            stagger: 0.2,
+            ease: "power2.out"
+        });
+
+        // Step cards animation
+        gsap.from(".step-card", {
+            scrollTrigger: {
+                trigger: "#how-it-works",
+                start: "top 80%",
+                end: "bottom 20%",
+                toggleActions: "play none none reverse"
+            },
+            duration: 0.8,
+            y: 50,
+            opacity: 0,
+            stagger: 0.2,
+            ease: "power2.out"
+        });
+
+        // About section animation
+        gsap.from(".about-text", {
+            scrollTrigger: {
+                trigger: "#about",
+                start: "top 80%",
+                end: "bottom 20%",
+                toggleActions: "play none none reverse"
+            },
+            duration: 1,
+            x: -50,
+            opacity: 0,
+            ease: "power2.out"
+        });
+
+        gsap.from(".about-visual", {
+            scrollTrigger: {
+                trigger: "#about",
+                start: "top 80%",
+                end: "bottom 20%",
+                toggleActions: "play none none reverse"
+            },
+            duration: 1,
+            x: 50,
+            opacity: 0,
+            ease: "power2.out"
+        });
+
+        // FAQ animation
+        gsap.from(".faq-item", {
+            scrollTrigger: {
+                trigger: "#faq",
+                start: "top 80%",
+                end: "bottom 20%",
+                toggleActions: "play none none reverse"
+            },
+            duration: 0.8,
+            y: 30,
+            opacity: 0,
+            stagger: 0.1,
+            ease: "power2.out"
+        });
+
+        // Contact form animation
+        gsap.from(".contact-form", {
+            scrollTrigger: {
+                trigger: "#contact",
+                start: "top 80%",
+                end: "bottom 20%",
+                toggleActions: "play none none reverse"
+            },
+            duration: 1,
+            x: -50,
+            opacity: 0,
+            ease: "power2.out"
+        });
+
+        gsap.from(".contact-info", {
+            scrollTrigger: {
+                trigger: "#contact",
+                start: "top 80%",
+                end: "bottom 20%",
+                toggleAction: "play none none reverse"
+            },
+            duration: 1,
+            x: 50,
+            opacity: 0,
+            ease: "power2.out"
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.createElement('div');
+        mobileMenu.className = 'md:hidden absolute top-16 left-0 right-0 bg-white shadow-lg z-50 hidden';
+        mobileMenu.innerHTML = `
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#hero" class="block px-3 py-2 text-gray-700 hover:text-purple-600">Home</a>
+                <a href="#features" class="block px-3 py-2 text-gray-700 hover:text-purple-600">Features</a>
+                <a href="#how-it-works" class="block px-3 py-2 text-gray-700 hover:text-purple-600">How It Works</a>
+                <a href="#faq" class="block px-3 py-2 text-gray-700 hover:text-purple-600">FAQ</a>
+                <a href="#contact" class="block px-3 py-2 text-gray-700 hover:text-purple-600">Contact</a>
+            </div>
+        `;
+        document.querySelector('nav').appendChild(mobileMenu);
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Create animated network visualization
+        function createNetworkVisualization() {
+            const svg = document.getElementById('network-viz');
+            const svgRect = svg.getBoundingClientRect();
+            const width = svgRect.width || 400;
+            const height = 400;
+
+            const nodes = [
+                {id: 1, x: width/2, y: height/2 - 50, r: 10, color: 'url(#nodeGradient)', name: 'Central Hub'},
+                {id: 2, x: width/2 - 80, y: height/2 - 100, r: 8, color: '#9333ea', name: 'Node A'},
+                {id: 3, x: width/2 + 80, y: height/2 - 100, r: 8, color: '#9333ea', name: 'Node B'},
+                {id: 4, x: width/2 - 120, y: height/2, r: 6, color: '#a855f7', name: 'Node C'},
+                {id: 5, x: width/2 + 120, y: height/2, r: 6, color: '#a855f7', name: 'Node D'},
+                {id: 6, x: width/2 - 80, y: height/2 + 50, r: 6, color: '#a855f7', name: 'Node E'},
+                {id: 7, x: width/2 + 80, y: height/2 + 50, r: 6, color: '#a855f7', name: 'Node F'},
+                {id: 8, x: width/2, y: height/2 + 100, r: 5, color: '#c084fc', name: 'Node G'},
+            ];
+
+            const connections = [
+                {from: 1, to: 2}, {from: 1, to: 3}, {from: 1, to: 6}, {from: 1, to: 7},
+                {from: 2, to: 4}, {from: 3, to: 5}, {from: 6, to: 8}, {from: 7, to: 8},
+                {from: 4, to: 6}, {from: 5, to: 7}, {from: 2, to: 3}, {from: 6, to: 7}
+            ];
+
+            // Clear existing content
+            svg.innerHTML = svg.querySelector('defs').outerHTML;
+
+            // Create connections with animation
+            connections.forEach((conn, index) => {
+                const from = nodes.find(n => n.id === conn.from);
+                const to = nodes.find(n => n.id === conn.to);
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', from.x);
+                line.setAttribute('y1', from.y);
+                line.setAttribute('x2', to.x);
+                line.setAttribute('y2', to.y);
+                line.setAttribute('class', 'connection');
+                line.setAttribute('filter', 'url(#glow)');
+                line.setAttribute('stroke', '#9333ea');
+                line.setAttribute('stroke-width', '2');
+                line.setAttribute('opacity', '0.6');
+                svg.appendChild(line);
+            });
+
+            // Create nodes with hover effects
+            nodes.forEach((node, index) => {
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', node.x);
+                circle.setAttribute('cy', node.y);
+                circle.setAttribute('r', node.r);
+                circle.setAttribute('fill', node.color);
+                circle.setAttribute('class', 'node');
+                circle.setAttribute('filter', 'url(#glow)');
+                circle.setAttribute('stroke', '#ffffff');
+                circle.setAttribute('stroke-width', '2');
+                circle.style.cursor = 'pointer';
+
+                // Add hover effect
+                circle.addEventListener('mouseenter', function() {
+                    gsap.to(this, {duration: 0.3, r: node.r + 3, ease: 'power2.out'});
+                });
+
+                circle.addEventListener('mouseleave', function() {
+                    gsap.to(this, {duration: 0.3, r: node.r, ease: 'power2.out'});
+                });
+
+                svg.appendChild(circle);
+            });
+
+            // Animate nodes appearing
+            gsap.from('.node', {
+                duration: 2,
+                scale: 0,
+                opacity: 0,
+                stagger: 0.1,
+                ease: 'back.out(1.7)'
+            });
+
+            // Animate connections
+            gsap.from('.connection', {
+                duration: 1.5,
+                strokeDasharray: '5,5',
+                strokeDashoffset: 10,
+                opacity: 0,
+                stagger: 0.05,
+                ease: 'power2.out',
+                delay: 0.3
+            });
+
+            // Add continuous floating animation to nodes (restored)
+            nodes.forEach((node, index) => {
+                const circle = svg.querySelectorAll('.node')[index];
+                gsap.to(circle, {
+                    x: `+=${Math.random() * 20 - 10}`,
+                    y: `+=${Math.random() * 20 - 10}`,
+                    duration: 3 + Math.random() * 2,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: 'power2.inOut',
+                    delay: Math.random() * 2
+                });
+            });
+
+            // Add pulsing animation to connections (restored)
+            gsap.to('.connection', {
+                opacity: 0.3,
+                duration: 2,
+                repeat: -1,
+                yoyo: true,
+                ease: 'power2.inOut',
+                stagger: 0.1
+            });
+        }
+
+        // FAQ toggle function
+        function toggleFAQ(button) {
+            const faqItem = button.parentElement;
+            const answer = faqItem.querySelector('.hidden');
+            const icon = button.querySelector('svg');
+
+            if (answer.classList.contains('hidden')) {
+                answer.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+                gsap.from(answer, {duration: 0.3, opacity: 0, height: 0, ease: 'power2.out'});
+            } else {
+                gsap.to(answer, {
+                    duration: 0.3,
+                    opacity: 0,
+                    height: 0,
+                    ease: 'power2.out',
+                    onComplete: () => {
+                        answer.classList.add('hidden');
+                        icon.classList.remove('rotate-180');
+                    }
+                });
+            }
+        }
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('#hero');
+            const speed = 0.5;
+
+            if (parallax) {
+                parallax.style.transform = `translateY(${scrolled * speed}px)`;
+            }
+        });
+
+        // Initialize animations when page loads
+        window.addEventListener('load', () => {
+            createNetworkVisualization();
+
+            // Add floating animation to hero buttons
+            gsap.to('#hero-buttons button', {
+                y: 5,
+                duration: 2,
+                repeat: -1,
+                yoyo: true,
+                ease: 'power2.inOut',
+                stagger: 0.2
+            });
+        });
+
+        // Add hover effects to buttons
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('button:not(.faq-item button)');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', () => {
+                    gsap.to(button, {duration: 0.3, scale: 1.05, ease: 'power2.out'});
+                });
+
+                button.addEventListener('mouseleave', () => {
+                    gsap.to(button, {duration: 0.3, scale: 1, ease: 'power2.out'});
+                });
+            });
+        });
+
+        // Add scroll-triggered animations for background elements
+        gsap.set('.floating', {y: 0});
+        gsap.to('.floating', {
+            y: -20,
+            duration: 2,
+            repeat: -1,
+            yoyo: true,
+            ease: 'power2.inOut'
+        });
+
+        // Add typing animation effect for hero text
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+
+            type();
+        }
+
+        // Enhanced scroll-triggered animations
+        ScrollTrigger.create({
+            trigger: "#hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+            onUpdate: self => {
+                const progress = self.progress;
+                gsap.set('#network-viz', {
+                    rotation: progress * 360,
+                    opacity: 1 - progress
+                });
+            }
+        });
+
+        // Add mousemove parallax effect to hero section
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            gsap.to('#network-viz', {
+                x: (mouseX - window.innerWidth / 2) * 0.01,
+                y: (mouseY - window.innerHeight / 2) * 0.01,
+                duration: 1,
+                ease: 'power2.out'
+            });
+        });
+
+        // Add intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeInUp');
+                }
+            });
+        }, observerOptions);
+
+        // Add custom CSS animations
+        const customStyles = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .animate-fadeInUp {
+                animation: fadeInUp 0.8s ease-out forwards;
+            }
+        `;
+
+        // Hero section elements animation
+        gsap.timeline({
+        scrollTrigger: {
+            trigger: ".hero-section",
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+        }
+        })
+        .from(".hero-title", { y: 50, opacity: 0, duration: 1, ease: "power2.out" })
+        .from(".hero-subtitle", { y: 30, opacity: 0, duration: 0.8, ease: "power2.out" }, "-=0.5")
+        .from(".hero-text", { y: 20, opacity: 0, duration: 0.8, ease: "power2.out" }, "-=0.4")
+        .from(".hero-stats > div", {
+        opacity: 0,
+        y: 20,
+        stagger: 0.2,
+        duration: 0.5,
+        ease: "power2.out"
+        }, "-=0.3")
+        .from(".hero-buttons button", {
+        opacity: 0,
+        scale: 0.8,
+        stagger: 0.2,
+        duration: 0.5,
+        ease: "back.out(1.7)"
+        }, "-=0.5");
+
+        // Animate the grid shapes in the hero right side
+        gsap.from(".hero-shapes > div", {
+        opacity: 0,
+        scale: 0,
+        y: 30,
+        duration: 1,
+        stagger: 0.1,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+            trigger: ".hero-shapes",
+            start: "top 90%",
+            toggleActions: "play none none reverse"
+        }
+        });
+
+        // Floating effect to shapes (looping)
+        document.querySelectorAll('.hero-shapes > div').forEach((el, i) => {
+        gsap.to(el, {
+            y: `+=${5 + Math.random() * 10}`,
+            duration: 2 + Math.random() * 2,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+            delay: i * 0.1
+        });
+        });
+
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = customStyles;
+        document.head.appendChild(styleSheet);
+    </script>
+    <script src="js/landing.js"></script>
+</body>
+</html>
+

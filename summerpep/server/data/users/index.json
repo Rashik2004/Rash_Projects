@@ -1,0 +1,17 @@
+{
+  "users": [
+    {
+      "userId": "user_1752062743014_sc0if8s61",
+      "username": "rashik2004",
+      "email": "rashikghosh1918@gmail.com",
+      "createdAt": "2025-07-09T12:05:43.014Z",
+      "isActive": true
+    }
+  ],
+  "emailIndex": {
+    "rashikghosh1918@gmail.com": "user_1752062743014_sc0if8s61"
+  },
+  "usernameIndex": {
+    "rashik2004": "user_1752062743014_sc0if8s61"
+  }
+}

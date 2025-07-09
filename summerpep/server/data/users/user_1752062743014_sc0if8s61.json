@@ -1,0 +1,162 @@
+{
+  "userId": "user_1752062743014_sc0if8s61",
+  "username": "rashik2004",
+  "email": "rashikghosh1918@gmail.com",
+  "createdAt": "2025-07-09T12:05:43.014Z",
+  "lastLogin": null,
+  "isActive": true,
+  "networkData": {
+    "users": [
+      {
+        "id": "user_1752062771171999",
+        "name": "bhargaw pradhan"
+      },
+      {
+        "id": "user_1752062776897796",
+        "name": "ashmit sabaran"
+      },
+      {
+        "id": "user_1752062784549297",
+        "name": "bhanu pratap singh"
+      },
+      {
+        "id": "user_1752062793391370",
+        "name": "rashik ghosh"
+      },
+      {
+        "id": "user_1752062802753154",
+        "name": "mansi sandiliya"
+      },
+      {
+        "id": "user_1752062813396358",
+        "name": "ashish garud"
+      },
+      {
+        "id": "user_1752062823296903",
+        "name": "shraddha khapra"
+      },
+      {
+        "id": "user_1752062833422372",
+        "name": "amal reddy"
+      },
+      {
+        "id": "user_1752062840023813",
+        "name": "ayush pahadi"
+      },
+      {
+        "id": "user_1752062845100941",
+        "name": "ayush singh"
+      },
+      {
+        "id": "user_1752062855589970",
+        "name": "akshit jain"
+      },
+      {
+        "id": "user_1752062860340223",
+        "name": "sia jaiswal"
+      },
+      {
+        "id": "user_1752062868319636",
+        "name": "jassi hans"
+      }
+    ],
+    "connections": [
+      {
+        "id": "conn_1752063585709",
+        "user1Id": "user_1752062771171999",
+        "user2Id": "user_1752062776897796"
+      },
+      {
+        "id": "conn_1752063597148",
+        "user1Id": "user_1752062793391370",
+        "user2Id": "user_1752062771171999"
+      },
+      {
+        "id": "conn_1752063602794",
+        "user1Id": "user_1752062793391370",
+        "user2Id": "user_1752062776897796"
+      },
+      {
+        "id": "conn_1752063608197",
+        "user1Id": "user_1752062793391370",
+        "user2Id": "user_1752062784549297"
+      },
+      {
+        "id": "conn_1752063610561",
+        "user1Id": "user_1752062793391370",
+        "user2Id": "user_1752062802753154"
+      },
+      {
+        "id": "conn_1752063612830",
+        "user1Id": "user_1752062793391370",
+        "user2Id": "user_1752062813396358"
+      },
+      {
+        "id": "conn_1752063620981",
+        "user1Id": "user_1752062793391370",
+        "user2Id": "user_1752062840023813"
+      },
+      {
+        "id": "conn_1752063635865",
+        "user1Id": "user_1752062771171999",
+        "user2Id": "user_1752062784549297"
+      },
+      {
+        "id": "conn_1752063646678",
+        "user1Id": "user_1752062771171999",
+        "user2Id": "user_1752062813396358"
+      },
+      {
+        "id": "conn_1752063657682",
+        "user1Id": "user_1752062776897796",
+        "user2Id": "user_1752062784549297"
+      },
+      {
+        "id": "conn_1752063667361",
+        "user1Id": "user_1752062776897796",
+        "user2Id": "user_1752062802753154"
+      },
+      {
+        "id": "conn_1752063673814",
+        "user1Id": "user_1752062776897796",
+        "user2Id": "user_1752062813396358"
+      },
+      {
+        "id": "conn_1752063684631",
+        "user1Id": "user_1752062833422372",
+        "user2Id": "user_1752062840023813"
+      },
+      {
+        "id": "conn_1752063686495",
+        "user1Id": "user_1752062833422372",
+        "user2Id": "user_1752062845100941"
+      },
+      {
+        "id": "conn_1752063688530",
+        "user1Id": "user_1752062833422372",
+        "user2Id": "user_1752062855589970"
+      },
+      {
+        "id": "conn_1752063691511",
+        "user1Id": "user_1752062833422372",
+        "user2Id": "user_1752062860340223"
+      },
+      {
+        "id": "conn_1752063693514",
+        "user1Id": "user_1752062833422372",
+        "user2Id": "user_1752062868319636"
+      },
+      {
+        "id": "conn_1752063713469",
+        "user1Id": "user_1752062840023813",
+        "user2Id": "user_1752062823296903"
+      },
+      {
+        "id": "conn_1752063717864",
+        "user1Id": "user_1752062793391370",
+        "user2Id": "user_1752062823296903"
+      }
+    ],
+    "lastModified": "2025-07-09T12:21:57.864Z"
+  }
+}
