@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!$stmt) {
         die("Error preparing statement: " . $conn->error);
     }
-
+    
     $stmt->bind_param("sisssii", $question_text, $difficulty, $blooms_taxonomy, $subject_code, $subject_name, $max_time, $marks);
 
     if ($stmt->execute()) {
